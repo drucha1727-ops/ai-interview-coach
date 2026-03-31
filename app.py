@@ -30,6 +30,16 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.title("🎤 AI Interview Coach")
+st.markdown("""
+## 🚀 Mock Practice Interviews
+
+Practice real interviews with:
+- 🎯 Role-specific questions
+- 🔁 Smart follow-ups
+- 📊 Detailed feedback
+
+👉 Select your role, skills, and start the interview.
+""")
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -52,6 +62,9 @@ with col3:
 with col4:
     total_questions = st.selectbox("Questions", [1,2,3,4])
 
+if st.button("🔄 Reset Interview"):
+    st.session_state.clear()
+
 st.divider()
 
 # ---------------- STATE ----------------
@@ -71,6 +84,8 @@ if "show_feedback" not in st.session_state:
     st.session_state["show_feedback"] = False
 
 # ---------------- START ----------------
+if not st.session_state.get("active") and not st.session_state.get("show_feedback"):
+    st.info("👆 Start the interview to begin practicing")
 if st.button("🚀 Start Interview"):
     st.session_state["interview"] = []
     st.session_state["q_index"] = 1
